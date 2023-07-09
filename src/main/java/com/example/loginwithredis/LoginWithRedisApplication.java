@@ -1,5 +1,6 @@
 package com.example.loginwithredis;
 
+import com.example.loginwithredis.util.SecurityUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
