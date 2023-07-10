@@ -6,6 +6,7 @@
 
 #### 로그인 화면
 `/user/login.do`로 접속
+<br>
 <img width="497" alt="로그인화면" src="https://github.com/pongdangx2/LoginWithRedis/assets/32296630/d37546b7-d444-48a5-add1-f0f059773a05">
 
 #### 회원가입 화면
@@ -36,7 +37,7 @@
 
 <br>
 
-** ex) **
+* ex)
 ```
 {
     "id":"user id",
@@ -57,7 +58,7 @@
 
 <br>
 
-** ex) **
+* ex) 
 ```
 {
     "code": "00",
