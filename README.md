@@ -62,6 +62,6 @@
 ```
 {
     "code": "00",
-    "message": "SUCCESS"
+    "message": "성공"
 }
 ```
