@@ -9,4 +9,20 @@ public class CommonErrorException extends LkhException {
         super(ErrorCode.COMMON_ERROR);
     }
 
+
+    public CommonErrorException(String message) {
+        super(message, ErrorCode.COMMON_ERROR);
+    }
+
+    public CommonErrorException(String message, Throwable cause) {
+        super(message, cause, ErrorCode.COMMON_ERROR);
+    }
+
+    public CommonErrorException(Throwable cause) {
+        super(cause, ErrorCode.COMMON_ERROR);
+    }
+
+    public CommonErrorException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace, ErrorCode.COMMON_ERROR);
+    }
 }
