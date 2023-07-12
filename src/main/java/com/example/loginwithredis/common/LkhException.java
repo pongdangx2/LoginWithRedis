@@ -1,10 +1,8 @@
 package com.example.loginwithredis.common;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class LkhException extends RuntimeException {
 
     private ErrorCode errorCode;

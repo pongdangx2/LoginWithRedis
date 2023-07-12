@@ -39,8 +39,8 @@ public class UserController {
         try {
             userService.signIn(userVO);
             resultMessage = "로그인 성공";
-        }catch(LkhException le){
-            resultMessage = le.getErrorCode().getMessage();
+        }catch(LkhException lkhException){
+            resultMessage = lkhException.getErrorCode().getMessage();
         }
         mv.addObject("resultMessage", resultMessage);
         mv.setViewName("redirect:/user/login.do");
@@ -57,8 +57,8 @@ public class UserController {
         try {
             userService.join(userVO);
             resultMessage = "회원가입 성공";
-        }catch(LkhException le){
-            resultMessage = le.getErrorCode().getMessage();
+        }catch(LkhException lkhException){
+            resultMessage = lkhException.getErrorCode().getMessage();
         }
 
         mv.addObject("resultMessage", resultMessage);
@@ -71,15 +71,15 @@ public class UserController {
     @PostMapping("/signIn")
     @ResponseBody
     public UserResponseVO signInApi(@RequestBody UserVO userVO){
-        ErrorCode errorCode = userService.signIn(userVO);
-        return new UserResponseVO(errorCode);
+        userService.signIn(userVO);
+        return new UserResponseVO(ErrorCode.SUCCESS);
     }
 
     @PostMapping("/join")
     @ResponseBody
     public UserResponseVO joinApi(@RequestBody UserVO userVO){
-        ErrorCode errorCode = userService.join(userVO);
-        return new UserResponseVO(errorCode);
+        userService.join(userVO);
+        return new UserResponseVO(ErrorCode.SUCCESS);
     }
     // ===================================== for api end =====================================
 }
