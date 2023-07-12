@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public enum ErrorCode {
 
+
       SUCCESS("00", "성공")
     , COMMON_ERROR("01", "처리중 에러가 발생하였습니다.")
     , DUPLICATE_ID("10", "중복된 ID 입니다.")

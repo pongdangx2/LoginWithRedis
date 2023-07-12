@@ -15,4 +15,5 @@ public class LeekhExceptionHandler {
         UserResponseVO userResponseVO = new UserResponseVO(e.getErrorCode());
         return ResponseEntity.status(HttpStatus.OK).body(userResponseVO);
     }
+
 }
