@@ -1,6 +1,7 @@
 package com.example.loginwithredis.user.controller;
 
 import com.example.loginwithredis.common.ErrorCode;
+import com.example.loginwithredis.common.LkhException;
 import com.example.loginwithredis.user.service.UserService;
 import com.example.loginwithredis.user.vo.UserResponseVO;
 import com.example.loginwithredis.user.vo.UserVO;
@@ -34,10 +35,13 @@ public class UserController {
         ModelAndView mv = new ModelAndView();
 
         UserVO userVO = new UserVO(id, password);
-        ErrorCode errorCode = userService.signIn(userVO);
-
-        String resultMessage = errorCode == ErrorCode.SUCCESS ? "로그인 성공" : errorCode.getMessage();
-
+        String resultMessage = "";
+        try {
+            userService.signIn(userVO);
+            resultMessage = "로그인 성공";
+        }catch(LkhException lkhException){
+            resultMessage = lkhException.getErrorCode().getMessage();
+        }
         mv.addObject("resultMessage", resultMessage);
         mv.setViewName("redirect:/user/login.do");
         return mv;
@@ -48,28 +52,34 @@ public class UserController {
         ModelAndView mv = new ModelAndView();
 
         UserVO userVO = new UserVO(id, password);
-        ErrorCode errorCode = userService.join(userVO);
 
-        String resultMessage = errorCode == ErrorCode.SUCCESS ? "회원가입 성공" : errorCode.getMessage();
+        String resultMessage = "";
+        try {
+            userService.join(userVO);
+            resultMessage = "회원가입 성공";
+        }catch(LkhException lkhException){
+            resultMessage = lkhException.getErrorCode().getMessage();
+        }
 
         mv.addObject("resultMessage", resultMessage);
         mv.setViewName("redirect:/user/login.do");
         return mv;
     }
     // ===================================== for web end =====================================
+
     // ===================================== for api start =====================================
     @PostMapping("/signIn")
     @ResponseBody
     public UserResponseVO signInApi(@RequestBody UserVO userVO){
-        ErrorCode errorCode = userService.signIn(userVO);
-        return new UserResponseVO(errorCode);
+        userService.signIn(userVO);
+        return new UserResponseVO(ErrorCode.SUCCESS);
     }
 
     @PostMapping("/join")
     @ResponseBody
     public UserResponseVO joinApi(@RequestBody UserVO userVO){
-        ErrorCode errorCode = userService.join(userVO);
-        return new UserResponseVO(errorCode);
+        userService.join(userVO);
+        return new UserResponseVO(ErrorCode.SUCCESS);
     }
     // ===================================== for api end =====================================
 }
