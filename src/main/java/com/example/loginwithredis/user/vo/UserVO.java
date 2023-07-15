@@ -1,16 +1,18 @@
 package com.example.loginwithredis.user.vo;
 
-import lombok.*;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class UserVO {
+// 2023.07.15
+public record UserVO(String id, String password) {
 
-    @NonNull
-    private String id;
+    public static UserVO createUserVO(String id, String password) {
+        return new UserVO(id, password);
+    }
 
-    @NonNull
-    private String password;
+    public String getId() {
+        return id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 }

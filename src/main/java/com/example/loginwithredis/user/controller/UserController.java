@@ -1,14 +1,11 @@
 package com.example.loginwithredis.user.controller;
 
 import com.example.loginwithredis.common.ErrorCode;
-import com.example.loginwithredis.common.LkhException;
 import com.example.loginwithredis.user.service.UserService;
 import com.example.loginwithredis.user.vo.UserResponseVO;
 import com.example.loginwithredis.user.vo.UserVO;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/user")
@@ -20,16 +17,22 @@ public class UserController {
         this.userService = redisUserService;
     }
 
+    // 2023.07.15 이경훈: Client Side Rendering 으로 변경
     // ===================================== for web start =====================================
     @RequestMapping("/login.do")
+    public String loginPage(){
+        return "login.html";
+    }
+    /*
     public ModelAndView loginPage(@RequestParam(required = false) String resultMessage) {
         ModelAndView mv = new ModelAndView();
         if(resultMessage != null)
             mv.addObject("resultMessage", resultMessage);
         mv.setViewName("Login.html");
         return mv;
-    }
+    }*/
 
+    /*
     @RequestMapping("/signIn.do")
     public ModelAndView signIn(@RequestParam(value = "id") String id, @RequestParam("password") String password) {
         ModelAndView mv = new ModelAndView();
@@ -65,6 +68,7 @@ public class UserController {
         mv.setViewName("redirect:/user/login.do");
         return mv;
     }
+    */
     // ===================================== for web end =====================================
 
     // ===================================== for api start =====================================

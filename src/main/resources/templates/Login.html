@@ -9,48 +9,115 @@
     <title>LoginWithRedis</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
 
     <style>
         .submit-btn {
             margin-top:5px;
         }
     </style>
+
     <script>
+        const protocol = 'http';
+        const host = 'localhost';
+        const port = '8080';
+
         window.onload=function(){
-            var resultMessage = "[[${resultMessage}]]";
-            if(resultMessage != ''){
-                alert(resultMessage);
-                submitAction("/user/login.do");
-            }
+            document.querySelector('#signin').addEventListener('click', function () {
+                if(validate()){
+                    userId = document.querySelector('#id').value;
+                    userPassword = document.querySelector('#password').value;
+
+                    $.ajax({
+                          url: getURL('/user/signIn')
+                        , method: 'POST'
+                        , data: JSON.stringify({
+                              'id':userId
+                            , 'password':userPassword
+                          })
+                        , dataType:'json'
+                        , contentType:'application/json;charset=UTF-8'
+                        , success: function(data, textStatus, xhr) {
+                            if(data.code === '00'){
+                                alert('로그인 ' + data.message);
+                            } else {
+                                alert(data.message);
+                            }
+                        }
+                        , error: function(data, textStatus, xhr) {
+                            alert('로그인 에러입니다.');
+                        }
+                     });
+                }
+            });
+
+            document.querySelector('#join').addEventListener('click', function () {
+                if(validate()){
+                    userId = document.querySelector('#id').value;
+                    userPassword = document.querySelector('#password').value;
+
+                    $.ajax({
+                        url: getURL('/user/join')
+                        , method: 'POST'
+                        , data: JSON.stringify({
+                            'id':userId
+                            , 'password':userPassword
+                        })
+                        , dataType:'json'
+                        , contentType:'application/json;charset=UTF-8'
+                        , success: function(data, textStatus, xhr) {
+                            if(data.code === '00'){
+                                alert('회원가입 ' + data.message);
+                            } else {
+                                alert(data.message);
+                            }
+                        }
+                        , error: function(data, textStatus, xhr) {
+                            alert('회원가입 에러입니다.');
+                        }
+                    });
+                }
+            });
         }
+
+        function getURL(uri){
+            return protocol + '://' + host + ':' + port + uri;
+        }
+        /*
         function submitAction(action){
             var frm = document.getElementById("frm");
             frm.action=action;
             frm.submit();
         }
+        window.onload=function(){
+            var resultMessage = "[[${resultMessage}]]";
+            if(resultMessage !== ''){
+                alert(resultMessage);
+                submitAction("/user/login.do");
+            }
+        }
+
         function onSinginClicked(){
             if(validate()){
                 submitAction("/user/signIn.do");
             }
-            /*
-            var frm = document.getElementById("frm");
-            frm.action="/user/signin";
-            frm.submit();
-             */
+            // var frm = document.getElementById("frm");
+            // frm.action="/user/signin";
+            // frm.submit();
         }
 
         function onJoinClicked(){
             if(validate()){
                 submitAction("/user/join.do");
             }
-            /*
-            var frm = document.getElementById("frm")
-            frm.action="/user/join";
-            frm.submit();
-             */
+            // var frm = document.getElementById("frm")
+            // frm.action="/user/join";
+            // frm.submit();
         }
+         */
+
         function validate(){
             if(document.getElementById("id").value === ''){
                 alert('ID를 입력하세요');
@@ -71,17 +138,22 @@
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
         <div class="form-floating">
-            <input type="id" class="form-control" id="id" placeholder="ID" th:name="id">
+            <!-- <input type="id" class="form-control" id="id" placeholder="ID" th:name="id"> -->
+            <input type="id" class="form-control" id="id" placeholder="ID">
             <label for="id">id</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" id="password" placeholder="Password" th:name="password">
+            <!--<input type="password" class="form-control" id="password" placeholder="Password" th:name="password"> -->
+            <input type="password" class="form-control" id="password" placeholder="Password">
             <label for="password">Password</label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary submit-btn" name="signin" type="button" onclick="onSinginClicked()">Sign in</button>
-        <button class="w-100 btn btn-lg btn-primary submit-btn" name="join" type="button" onclick="onJoinClicked()">Join</button>
-        <p class="mt-5 mb-3 text-muted">&copy; 2017–2022</p>
+        <!--<button class="w-100 btn btn-lg btn-primary submit-btn" name="signin" id="signinId" type="button" onclick="onSinginClicked()">Sign in</button>-->
+        <button class="w-100 btn btn-lg btn-primary submit-btn" id="signin" type="button" >Sign in</button>
+        <!--<button class="w-100 btn btn-lg btn-primary submit-btn" name="join" id="joinId" type="button" onclick="onJoinClicked()">Join</button>-->
+        <button class="w-100 btn btn-lg btn-primary submit-btn" id="join" type="button" >Join</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017–2022-1</p>
     </form>
 </main>
 </body>
+
 </html>
