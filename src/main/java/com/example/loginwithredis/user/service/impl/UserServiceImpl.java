@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
                 //패스워드 저장
                 ValueOperations<String, UserVO> stringObjectValueOperations = redisTemplate.opsForValue();
                 String encryptedPassword = SecurityUtil.encrypt(userVO.getPassword());
-                userVO.setPassword(encryptedPassword);
+                userVO = UserVO.createUserVO(userVO.getId(), encryptedPassword);
                 stringObjectValueOperations.set(userVO.getId(), userVO);
             }
         } catch(NoSuchAlgorithmException | NullPointerException exception) {
