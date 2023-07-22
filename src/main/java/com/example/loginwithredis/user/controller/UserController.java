@@ -2,7 +2,7 @@ package com.example.loginwithredis.user.controller;
 
 import com.example.loginwithredis.common.ErrorCode;
 import com.example.loginwithredis.user.service.UserService;
-import com.example.loginwithredis.user.vo.UserResponseVO;
+import com.example.loginwithredis.user.vo.CommonResponse;
 import com.example.loginwithredis.user.vo.UserVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -74,16 +74,16 @@ public class UserController {
     // ===================================== for api start =====================================
     @PostMapping("/signIn")
     @ResponseBody
-    public UserResponseVO signInApi(@RequestBody UserVO userVO){
+    public CommonResponse signInApi(@RequestBody UserVO userVO){
         userService.signIn(userVO);
-        return new UserResponseVO(ErrorCode.SUCCESS);
+        return new CommonResponse(ErrorCode.SUCCESS);
     }
 
     @PostMapping("/join")
     @ResponseBody
-    public UserResponseVO joinApi(@RequestBody UserVO userVO){
+    public CommonResponse joinApi(@RequestBody UserVO userVO){
         userService.join(userVO);
-        return new UserResponseVO(ErrorCode.SUCCESS);
+        return new CommonResponse(ErrorCode.SUCCESS);
     }
     // ===================================== for api end =====================================
 }
