@@ -1,4 +1,4 @@
-# LoginWithRedis
+# login-with-redis
 
 * Redis를 DB로 하여 만들어본 회원가입 및 로그인 서비스입니다.
 
